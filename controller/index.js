@@ -1,3 +1,3 @@
 module.exports = {
-    libController: require("./controllerAll")
+    libController: require("./controller")
 }

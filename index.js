@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const port = 4000
+const port = process.env.port || 4000
 
 dotenv.config();
 

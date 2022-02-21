@@ -6,7 +6,7 @@ const {libController} = require("../controller")
 router.post("/create", libController.libraryCreate);
 router.get("/", libController.libraryData);
 router.get("/:id", libController.libraryDetails);
-router.put("/");
-router.delete("/");
+router.put("/update/:id",libController.libraryUpdate);
+router.delete("/delete/:id", libController.libraryDelete);
 
 module.exports = router;

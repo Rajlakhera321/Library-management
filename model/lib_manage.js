@@ -1,10 +1,10 @@
 const {Schema,model} = require("mongoose");
 
 const librarySchema = new Schema({
-    student_name: {
+    studentName: {
         type: Schema.Types.String
     },
-    book_name: {
+    bookName: {
         type: Schema.Types.String
     },
     issueDate: {

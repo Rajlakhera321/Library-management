@@ -12,7 +12,15 @@ const librarySchema = new Schema({
     },
     charges: {
         type: Schema.Types.String
+    },
+    password: {
+        type: Schema.Types.String,
+        required: true
+    },
+    email: {
+        type: Schema.Types.String,
+        required: true
     }
-});
+},{timestamps: true});
 
 module.exports = model("Library",librarySchema);

@@ -7,32 +7,32 @@ const jwt = require("jsonwebtoken")
 const libraryData = async (req, res ) => {
     try{
         const libManage = await libraryManagement.find({});
-        return succussHandler(res,constantAll.OK,constantAll.GET_MESSAGE,libManage);
+        return succussHandler(res,constants.OK,constants.GET_MESSAGE,libManage);
     } catch(error) {
-        return errorHandler(res,constantAll.NOT_FOUND,constantAll.RECORD_NOT_FOUND);
+        return errorHandler(res,constants.NOT_FOUND,constants.RECORD_NOT_FOUND);
     }
 };
 const libraryDetails = async (req, res) => {
     try{
         const libManage = await libraryManagement.findById(req.params.id);
-        return succussHandler(res,constantAll.OK,constantAll.GET_MESSAGE,libManage)
+        return succussHandler(res,constants.OK,constants.GET_MESSAGE,libManage)
     } catch(error) {
-        return errorHandler(res,constantAll.NOT_FOUND,constantAll.RECORD_NOT_FOUND);
+        return errorHandler(res,constants.NOT_FOUND,constants.RECORD_NOT_FOUND);
     }
 };
 const libraryCreate = async (req, res) => {
     try{
-        // const library = {
-        //     studentName: req.body.studentName,
-        //     bookName: req.body.bookName,
-        //     issueDate: req.body.issueDate,
-        //     charges: req.body.charges,
-        //     password: req.body.password,
-        //     email: req.body.email
-        // }
         req.body.password = await bcrypt.hash(req.body.password, 10)
+        const library = {
+            studentName: req.body.studentName,
+            bookName: req.body.bookName,
+            issueDate: req.body.issueDate,
+            charges: req.body.charges,
+            password: req.body.password,
+            email: req.body.email
+        }
         console.log(req.body.password)
-        const add = await new libraryManagement(req.body)
+        const add = await new libraryManagement(library)
         await add.save();
         return succussHandler(res,constants.CREATED,constants.CREATE_SUCCESS)
     } catch(error) {
@@ -42,20 +42,21 @@ const libraryCreate = async (req, res) => {
 };
 const libraryUpdate = async (req, res) => {
     try{
+        
         const _id = req.params.id
         const update = await libraryManagement.findByIdAndUpdate(_id,{$set:req.body},{upsert:true, new:true});
-        return succussHandler(res,constantAll.OK,constantAll.UPDATE_SUCCESS,update)
+        return succussHandler(res,constants.OK,constants.UPDATE_SUCCESS,update)
     } catch(error){
-        return errorHandler(res,constantAll.SERVER_ERROR,constantAll.SERVER_ERROR_MSG)
+        return errorHandler(res,constants.SERVER_ERROR,constants.SERVER_ERROR_MSG)
     }
 };
 const libraryDelete = async (req, res) => {
     try{
         const _id = req.params.id
         const removedData = await libraryManagement.findByIdAndDelete({_id: _id});
-        return succussHandler(res,constantAll.OK,constantAll.DELETE_MSG,removedData)
+        return succussHandler(res,constants.OK,constants.DELETE_MSG,removedData)
     } catch(error){
-        return errorHandler(res,constantAll.SERVER_ERROR,constantAll.SERVER_ERROR_MSG)
+        return errorHandler(res,constants.SERVER_ERROR,constants.SERVER_ERROR_MSG)
     }
 };
 
